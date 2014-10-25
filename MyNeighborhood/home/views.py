@@ -34,19 +34,28 @@ def complaint_types(request):
 	for c_type in complaints:
 		type_set.add(c_type['complaint_type'])
 
+	pie_data = {}
+	for c in complaints:
+		if  c['complaint_type'] in pie_data:
+			pie_data['complaint_type'] += 1
+		else:
+			pie_data['complaint_type'] = 1
+	
+	request.session['complaints'] = pie_data
+
 	return Response(type_set)
-"""
+
 @api_view(['POST'])
 def gen_pie_data(request):
-	complaints=complaint_types()
+	if request.POST:
+		pie_data = request.session['complaints']
 
-	complaint_set=set(complaints)
-	num_complaints={}
-	for c in complaint_set:
-		temp_dict={}
-		temp_dict['label']=c
-		temp_dict['value']=(complaints.count(c)/len(complaints))*100
-		num_complaints.append(temp_dict)
-	return num_complaints
+		complaint_set=set(complaints)
+		num_complaints={}
+		for c in complaint_set:
+			temp_dict={}
+			temp_dict['label']=c['complaint_type']
+			temp_dict['value']=(complaints.count(c)/len(complaints))*100
+			num_complaints.append(temp_dict)
+		return num_complaints
 
-"""
