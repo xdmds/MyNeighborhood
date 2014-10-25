@@ -13,11 +13,8 @@ def complaints(request):
 	data = request.DATA
 	zipcode = data['zipcode']
 	complaint_type = data['complaint_type'] 
-	print (zipcode)
-	print (complaint_type)
 	string = 'http://data.cityofnewyork.us/resource/erm2-nwe9.json?'+ '$select=latitude,longitude&incident_zip=' + zipcode + '&complaint_type=' + complaint_type
 	complaints = requests.get(string).json()
-	print (complaints)
 
 	complaint_list = []
 	for c in complaints:
@@ -38,10 +35,11 @@ def complaint_types(request):
 		type_set.add(c_type['complaint_type'])
 
 	return Response(type_set)
+"""
+@api_view(['POST'])
+def gen_pie_data(request):
+	complaints=complaint_types()
 
-
-def gen_bar_data(request):
-	conplaints=conplaint_types()
 	complaint_set=set(complaints)
 	num_complaints={}
 	for c in complaint_set:
@@ -51,3 +49,4 @@ def gen_bar_data(request):
 		num_complaints.append(temp_dict)
 	return num_complaints
 
+"""
