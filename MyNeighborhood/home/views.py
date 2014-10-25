@@ -23,13 +23,15 @@ def complaints(request):
 
 	return Response(complaint_list)
 
-@api_view(['GET'])
+@api_view(['POST', 'DATA'])
 def complaint_types(request):
 	"""
 	returns the unique complaint types for the 1000 issues pulled from SODA API with no filters or queries
 	"""
+	data = request.DATA
+	zipcode = data['zipcode']
 	type_set = set()
-	complaints = requests.get('http://data.cityofnewyork.us/resource/erm2-nwe9.json?$select=complaint_type').json()
+	complaints = requests.get('http://data.cityofnewyork.us/resource/erm2-nwe9.json?$select=complaint_type&incident_zip=' + zipcode).json()
 
 	for c_type in complaints:
 		type_set.add(c_type['complaint_type'])
@@ -50,13 +52,12 @@ def gen_pie_data(complaints):
 			pie_data[c['complaint_type']] += 1
 		else:
 			pie_data[c['complaint_type']] = 1
-	print pie_data
+
 	num_complaints=[]
-	print comp_sum
+
 	for c in pie_data.keys():
 		temp_dict={}
 		temp_dict['key'] = c
-		print pie_data[c]
 
 		temp_dict['y']=pie_data[c]
 		num_complaints.append(temp_dict)
