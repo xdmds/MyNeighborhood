@@ -61,6 +61,9 @@ angular.module('myneighborhood', ['ui.bootstrap', 'ui.utils', 'nvd3', 'google-ma
 			});
 		}
 	};
+	$scope.$watch('map', function(newValue, oldValue) {
+		console.log("NEW CENTER");
+	}, true)
 	$scope.$watch('position', function(newValue, oldValue) {
 		console.log("NEW VALUE");
 		console.log(newValue);
