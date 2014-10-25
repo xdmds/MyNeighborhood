@@ -1,9 +1,11 @@
 from django.shortcuts import render
 import requests
 import json
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 
-@api_view(['DATA'])
+@api_view(['POST', 'DATA'])
 def complaints(request):
 	"""
 	get the complaints for the filter options selected
@@ -22,9 +24,10 @@ def complaints(request):
 		if 'latitude' in c and 'longitude' in c:
 			complaint_list.append( (c['latitude'], c['longitude']) )
 
-	return complaint_list
+	return Response(complaint_list)
 
-def complaint_types():
+@api_view(['GET'])
+def complaint_types(request):
 	"""
 	returns the unique complaint types for the 1000 issues pulled from SODA API with no filters or queries
 	"""
@@ -34,4 +37,4 @@ def complaint_types():
 	for c_type in complaints:
 		type_set.add(c_type['complaint_type'])
 
-	return type_set
+	return Response(type_set)
