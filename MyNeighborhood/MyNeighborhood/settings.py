@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'home',
     'rest_framework',
 )
@@ -48,8 +49,20 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 )
-
+CORS_ORIGIN_WHITELIST = ('http://localhost:8000')
+CORS_ALLOW_HEADERS = (
+        'x-requested-with',
+        'content-type',
+        'accept',
+        'origin',
+        'authorization',
+        'x-csrftoken',
+        'Access-Control-Allow-Headers',
+        'Access-Control-Allow-Origin'
+)
 SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
 
 ROOT_URLCONF = 'MyNeighborhood.urls'

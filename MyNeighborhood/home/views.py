@@ -50,12 +50,16 @@ def gen_pie_data(complaints):
 			pie_data[c['complaint_type']] += 1
 		else:
 			pie_data[c['complaint_type']] = 1
-		
+	print pie_data
 	num_complaints=[]
+	print comp_sum
 	for c in pie_data.keys():
 		temp_dict={}
-		temp_dict['label']=c
-		temp_dict['value']=(pie_data[c]/comp_sum)*100
+		temp_dict['key'] = c
+		print pie_data[c]
+
+		temp_dict['y']=pie_data[c]
 		num_complaints.append(temp_dict)
+
 	return num_complaints
 
