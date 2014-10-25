@@ -25,7 +25,6 @@ class Complaint(models.Model):
 	date_time=models.DateTimeField()
 	complaint_type=models.ForeignKey(Complaint_type)
 	status=models.CharField(max_length=20)
-	x_coor=models.IntegerField()
-	y_coor=models.IntegerField()
-
+	latitude=models.IntegerField()
+	longitude=models.IntegerField()
 

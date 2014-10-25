@@ -38,3 +38,16 @@ def complaint_types(request):
 		type_set.add(c_type['complaint_type'])
 
 	return Response(type_set)
+
+
+def gen_bar_data(request):
+	conplaints=conplaint_types()
+	complaint_set=set(complaints)
+	num_complaints={}
+	for c in complaint_set:
+		temp_dict={}
+		temp_dict['label']=c
+		temp_dict['value']=(complaints.count(c)/len(complaints))*100
+		num_complaints.append(temp_dict)
+	return num_complaints
+
