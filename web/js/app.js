@@ -21,7 +21,8 @@ angular.module('myneighborhood', ['ui.bootstrap', 'ui.utils', 'nvd3', 'google-ma
 			"height": 500,
 			"x": function(d){return d.key;},
             "y": function(d){return d.y;},
-            "showLegend": false
+            "showLegend": false,
+            "transitionDuration": 500
 		}
 	}
 	$scope.piedata = []
@@ -32,7 +33,8 @@ angular.module('myneighborhood', ['ui.bootstrap', 'ui.utils', 'nvd3', 'google-ma
 	$scope.$watch('zipcode', function(newValue, oldValue) {
 		console.log("NEW ZIPCODE: " + newValue);
 		if (newValue.length == 5){
-			$http.get('http://localhost:8001/api/categories/').success(function(data) {
+			$http.post('http://localhost:8001/api/categories/',{"zipcode": $scope.zipcode})
+			.success(function(data) {
 				$scope.categories = data['type_set'];
 				$scope.piedata = data['pie_data']
 				console.log($scope.piedata);

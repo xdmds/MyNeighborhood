@@ -22,6 +22,14 @@
   <script src="js/heat-layer.js"></script>
 </head>
 <body ng-controller="homeCtrl">
+  <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 	<h1>My Neighborhood</h1>
   
 	<form role="form">
@@ -35,6 +43,9 @@
 
 	</div>
    <div class="col-md-4"><h3>Categories</h3>
-    <nvd3 options="chartoptions" data="piedata"></nvd3></div>
+    <nvd3 options="chartoptions" data="piedata"></nvd3>
+  <div class="fb-comments" data-href="http://developers.facebook.com/docs/plugins/comments/" data-numposts="5" data-colorscheme="light"></div>
+</div>
+
 </body>
 </html>
